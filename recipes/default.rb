@@ -40,6 +40,13 @@ if node['virtualization']['system'] == 'vmware'
       cwd '/tmp'
     end
   
+    # run uninstall script
+    execute 'vmware-uninstall-tools.pl' do
+      command 'vmware-uninstall-tools.pl'
+      path ['/tmp/vmware-tools-distrib/bin']
+      ignore_failure true
+    end
+  
     # run install script
     execute 'vmware-install.pl' do
       command '/tmp/vmware-tools-distrib/vmware-install.pl --default'
