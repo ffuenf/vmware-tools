@@ -44,7 +44,8 @@ if node['virtualization']['system'] == 'vmware'
     end
   end
 
-  unless File.directory?('/usr/lib/vmware-tools')
+#  unless File.directory?('/usr/lib/vmware-tools')
+  unless `vmtoolsd -v`.include(node['esx']['tarball'].split('.')[2].split('-')[1])
 
     # get the file
     remote_file "#{Chef::Config[:file_cache_path]}/#{node['esx']['tarball']}" do
