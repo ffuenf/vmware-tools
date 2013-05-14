@@ -9,20 +9,39 @@
 
 if node['virtualization']['system'] == 'vmware'
 
-  bash "remove_vmware_tools" do
-    code <<-EOH
-    yum remove -y 'vmware*'
-    if [ -f /etc/yum.repos.d/vmware-tools.repo ]; then
-      rm -f /etc/yum.repos.d/vmware-tools.repo
-    fi
-    if [ -d /usr/lib/vmware-tools ]; then
-      rm -rf /usr/lib/vmware-tools
-    fi
-    if [ -d /etc/vmware-tools ]; then
-      rm -rf /etc/vmware-tools
-    fi
-    EOH
-    only_if "yum -C list installed 'vmware-tool*'"
+  case node['platform']
+  when 'rhel'
+    bash "remove_vmware_tools" do
+      code <<-EOH
+      yum remove -y 'vmware*'
+      if [ -f /etc/yum.repos.d/vmware-tools.repo ]; then
+        rm -f /etc/yum.repos.d/vmware-tools.repo
+      fi
+      if [ -d /usr/lib/vmware-tools ]; then
+        rm -rf /usr/lib/vmware-tools
+      fi
+      if [ -d /etc/vmware-tools ]; then
+        rm -rf /etc/vmware-tools
+      fi
+      EOH
+      only_if "yum -C list installed 'vmware-tool*'"
+    end
+  when 'debian'
+     bash "remove_vmware_tools" do
+      code <<-EOH
+      apt-get remove -y 'vmware*'
+      if [ -f /etc/yum.repos.d/vmware-tools.repo ]; then
+        rm -f /etc/yum.repos.d/vmware-tools.repo
+      fi
+      if [ -d /usr/lib/vmware-tools ]; then
+        rm -rf /usr/lib/vmware-tools
+      fi
+      if [ -d /etc/vmware-tools ]; then
+        rm -rf /etc/vmware-tools
+      fi
+      EOH
+      only_if "dpkg --get-selections | grep  'vmware-tool'"
+    end
   end
 
   unless File.directory?('/usr/lib/vmware-tools')
