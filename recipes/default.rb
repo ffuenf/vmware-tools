@@ -9,7 +9,7 @@
 
 if node['virtualization']['system'] == 'vmware'
 
-  case node['platform']
+  case node['platform_family']
   when 'rhel'
     bash "remove_vmware_tools" do
       code <<-EOH
