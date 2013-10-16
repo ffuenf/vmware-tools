@@ -1,55 +1,32 @@
 Description
 ===========
 
-Installs and configures vmware-tools using the tarball package that
-comes on the vmware ESX installation DVD. 
+Installs and configures vmware-tools using a tarball package that comes on the vmware ESX installation DVD.
+This cookbook works quite differently from the yumrepo::vwmare-tools recipe which installs rpms from vmware's public repository.
 
-This cookbook works quite differently from the yumrepo::vwmare-tools
-recipe which installs rpms from vmware's public repository. 
-
+Requirements
+============
 
 Platform
 --------
 
-* RHEL, CentOS, Fedora
-* Debian, Ubuntu theoretically
-
-Tested on RHEL 5 and RHEL 6
-
+* Debian
 
 Attributes
 ==========
 
-default
--------
-
-* node['esx']['version'] - version of ESX, this is automatically
-detected the default recipe but can be overriden
-* node['esx']['tarball'] - name of tarball
-* node['esx']['checksum'] - checksum for tarball
-
-
-Recipes
-=======
-
-default
--------
-
-This recipe requires that the attribute be set
-node['esx']['repo']. The relevant tarball must located at the
-base of that path, for example:
-
-http://repo.example.com/VMwareTools-4.0.0-208167.tar.gz
-
-This value is best set in a role or in the node attributes.
-
+* `node['vmware-tools']['version']` - (default: "5.1u1b")
+* `node['vmware-tools']['tarball']` - (default: "VMwareTools-9.0.5-1137270.tar.gz")
+* `node['vmware-tools']['checksum']` - (default: "9beba639024f6bd9eb6a345f7a1d9a14eeb480d09da6802b5d6a3fa69a9af041")
+* `node['vmware-tools']['src']['cookbook']` - cookbook where tarball of vmware-tools is located. If you use a wrapper cookbook you might adjust this. (default: "vmware-tools")
+* `node['vmware-tools']['src']['file']` - additional switch to use the local tarball file (default: true)
 
 License and Author
 ==================
 
-Author:: Bryan W. Berry <bryan.berry@gmail.com>
+Author:: Achim Rosenhagen (<a.rosenhagen@ffuenf.de>)
 
-Copyright 2009-2011, Bryan W. Berry
+Copyright:: 2013, Achim Rosenhagen
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -62,5 +39,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
-

@@ -1,7 +1,10 @@
-maintainer       "Bryan W. Berry"
-maintainer_email "bryan.berry@gmail.com"
+maintainer       "Achim Rosenhagen"
+maintainer_email "a.rosenhagen@ffuenf.de"
 license          "Apache 2.0"
-name             "vmware-tools"
-description      "Installs/Configures vmware-tools with a fugly bash script"
+description      "installs/configures vmware-tools"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.1.7"
+version          "1.0.0"
+
+%w{ debian }.each do |os|
+  supports os
+end
